@@ -7,7 +7,7 @@
 #include <qobject.h>
 #include <QHttp>
 
-#include "xmlrpc/variant.h"
+#include "qxmlrpc/variant.h"
 class QAuthenticator;
 
 namespace  xmlrpc {

@@ -89,6 +89,8 @@ OTHER_FILES += \
 TRANSLATIONS = nitroshare.ts
 
 INCLUDEPATH += include
+INCLUDEPATH += ..
+
 LIBS += -lqjson -lqxmlrpc
 
 # On the Windows platform we provide a resource file that defines

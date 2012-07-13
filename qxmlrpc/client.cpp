@@ -1,9 +1,9 @@
 // vim:tabstop=4:shiftwidth=4:foldmethod=marker:expandtab:cinoptions=(s,U1,m1
 // Copyright (C) 2009 Dmytro Poplavskiy <dmitry.poplavsky@gmail.com>
 
-#include "xmlrpc/client.h"
-#include "xmlrpc/request.h"
-#include "xmlrpc/response.h"
+#include "qxmlrpc/client.h"
+#include "qxmlrpc/request.h"
+#include "qxmlrpc/response.h"
 
 #include <qhttp.h>
 #include <qbuffer.h>

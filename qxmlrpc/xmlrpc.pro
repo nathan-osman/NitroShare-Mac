@@ -1,18 +1,13 @@
-
 TEMPLATE = lib
-unix:TARGET = ../qxmlrpc
-win32:TARGET = ../qxmlrpc
+TARGET   = ../../qxmlrpc
 
 CONFIG += warn_on
 CONFIG += staticlib
-CONFIG += debug_and_release
 CONFIG += precompile_header
 
-DEPENDPATH += .
-INCLUDEPATH += . ..
+QT += xml network
 
-QT += xml
-QT += network 
+INCLUDEPATH += ..
 
 HEADERS += stable.h
 PRECOMPILED_HEADER = stable.h
@@ -25,7 +20,7 @@ HEADERS += \
     serverintrospection.h \
     request.h \
     response.h \
-    variant.h \
+    variant.h
 
 SOURCES += \
     client.cpp \
@@ -33,29 +28,4 @@ SOURCES += \
     serverintrospection.cpp \
     request.cpp \
     response.cpp \
-    variant.cpp \
-
-!debug_and_release|build_pass {
-    CONFIG(debug, debug|release) {
-        TARGET = $$member(TARGET, 0)_debug
-    }
-}
-
-win32 {
-    # no -O2 allowed
-    QMAKE_CFLAGS_RELEASE = -MD
-    QMAKE_CXXFLAGS_RELEASE = -MD
-}
-
-# universal binaries for release
-# build from command line
-macx-g++ {
-    !debug_and_release|build_pass {
-        CONFIG(release, debug|release) {
-            CONFIG += x86 ppc
-            CONFIG -= precompile_header
-            QMAKE_MAC_SDK=/Developer/SDKs/MacOSX10.4u.sdk
-        }
-    }
-}
-
+    variant.cpp

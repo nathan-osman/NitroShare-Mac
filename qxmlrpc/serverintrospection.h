@@ -5,7 +5,7 @@
 #ifndef SERVERINTROSPECTION_H
 #define SERVERINTROSPECTION_H
 
-#include "xmlrpc/variant.h"
+#include "qxmlrpc/variant.h"
 namespace  xmlrpc {
 
 /**

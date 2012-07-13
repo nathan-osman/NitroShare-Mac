@@ -4,7 +4,7 @@
 #include <QtXml>
 #include <QtCore>
 
-#include "xmlrpc/variant.h"
+#include "qxmlrpc/variant.h"
 
 namespace  xmlrpc {
 

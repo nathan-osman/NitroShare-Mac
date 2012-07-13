@@ -2,21 +2,14 @@ QJSON_BASE = ..
 QJSON_SRCBASE = .
 
 TEMPLATE = lib
+TARGET   = ../../qjson
+
 QT      -= gui
-TARGET   = qjson
-DESTDIR  = $$QJSON_BASE/lib
-CONFIG += create_prl
+CONFIG  += staticlib
 
 VERSION = 0.7.1
 
-windows: {
-  DEFINES += QJSON_MAKEDLL
-}
-
-macx: CONFIG += lib_bundle
-
-QJSON_CPP = $$QJSON_SRCBASE
-INCLUDEPATH += $$QJSON_CPP
+INCLUDEPATH = ..
 
 PRIVATE_HEADERS += \
   json_parser.hh \
@@ -45,28 +38,3 @@ SOURCES += \
   qobjecthelper.cpp \
   serializer.cpp \
   serializerrunnable.cpp
-
-symbian: {
-  DEFINES += QJSON_MAKEDLL
-  #export public header to \epocroot\epoc32\include to be able to use them
-  headers.files = $$PUBLIC_HEADERS
-  headers.path = $$PWD
-  for(header, headers.files) {
-    {BLD_INF_RULES.prj_exports += "$$header"}
-  }
-
-  TARGET.EPOCALLOWDLLDATA = 1
-  # uid for the dll
-  #TARGET.UID3=
-  TARGET.CAPABILITY = ReadDeviceData WriteDeviceData
-
-  # do not freeze api-> no libs produced. Comment when freezing!
-  # run "abld freeze winscw" to create def files
-  symbian:MMP_RULES += "EXPORTUNFROZEN"
-
-  # add dll to the sis
-  QjsonDeployment.sources = $${TARGET}.dll
-  QjsonDeployment.path = /sys/bin
-
-  DEPLOYMENT += QjsonDeployment
-}
