@@ -92,6 +92,7 @@ INCLUDEPATH += include
 INCLUDEPATH += ..
 
 LIBS += -lqjson -lqxmlrpc
+LIBS += -L..
 
 # On the Windows platform we provide a resource file that defines
 # an icon and some internal version information and meta-data.
