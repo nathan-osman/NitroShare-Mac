@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/">
+        <file>icons/dark.png</file>
+        <file>icons/light.png</file>
+        <file>images/config.png</file>
+        <file>images/discovery1.png</file>
+        <file>images/discovery2.png</file>
+        <file>images/error.png</file>
+        <file>images/logo.png</file>
+        <file>images/multiple.png</file>
+        <file>images/sharebox.png</file>
+        <file>images/single.png</file>
+        <file>images/success.png</file>
+        <file>other/extras-nitroshare.desktop</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>CFirstStartWizard</class>
+ <widget class="QWizard" name="CFirstStartWizard">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>500</width>
+    <height>350</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>NitroShare Wizard</string>
+  </property>
+  <property name="wizardStyle">
+   <enum>QWizard::ModernStyle</enum>
+  </property>
+  <property name="options">
+   <set>QWizard::NoCancelButton</set>
+  </property>
+  <widget class="CWizardPage" name="WelcomePage">
+   <property name="title">
+    <string>NitroShare Setup</string>
+   </property>
+   <property name="subTitle">
+    <string>Gathering information for initial configuration.</string>
+   </property>
+   <attribute name="pageId">
+    <string notr="true">CFirstStartWizard::WelcomePage</string>
+   </attribute>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <property name="spacing">
+     <number>12</number>
+    </property>
+    <item>
+     <widget class="QLabel" name="WelcomeLabel">
+      <property name="text">
+       <string>Welcome to NitroShare! To help make it easier to set everything up, NitroShare can guide you through the configuration process.</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <layout class="QVBoxLayout" name="ConfigureLayout">
+      <property name="spacing">
+       <number>0</number>
+      </property>
+      <item>
+       <widget class="QRadioButton" name="AutoConfigure">
+        <property name="text">
+         <string>Help me set up NitroShare</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="ManualConfigure">
+        <property name="text">
+         <string>I will configure NitroShare myself</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+   </layout>
+  </widget>
+  <widget class="CWizardPage" name="MachineNamePage">
+   <property name="title">
+    <string>NitroShare Setup</string>
+   </property>
+   <property name="subTitle">
+    <string>Collecting basic information about the client.</string>
+   </property>
+   <attribute name="pageId">
+    <string notr="true">CFirstStartWizard::MachineNamePage</string>
+   </attribute>
+   <layout class="QVBoxLayout" name="verticalLayout_2">
+    <property name="spacing">
+     <number>12</number>
+    </property>
+    <item>
+     <widget class="QLabel" name="MachineNameLabel">
+      <property name="text">
+       <string>Please enter a name for your machine. This name will be displayed to other machines on the network.</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLineEdit" name="MachineName"/>
+    </item>
+   </layout>
+  </widget>
+  <widget class="CWizardPage" name="BroadcastDiscoveryPage">
+   <property name="title">
+    <string>NitroShare Setup</string>
+   </property>
+   <property name="subTitle">
+    <string>Discovering other machines on the local network.</string>
+   </property>
+   <attribute name="pageId">
+    <string notr="true">CFirstStartWizard::BroadcastDiscoveryPage</string>
+   </attribute>
+   <layout class="QVBoxLayout" name="verticalLayout_4">
+    <property name="spacing">
+     <number>12</number>
+    </property>
+    <item>
+     <widget class="QLabel" name="DiscoveryLabel">
+      <property name="text">
+       <string>NitroShare needs to determine which network interface to use. Please run NitroShare (or visit this wizard page) with any other machine on your network. This process may take up to 20 seconds to complete.</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="CBroadcastDiscoveryWidget" name="BroadcastDiscovery" native="true"/>
+    </item>
+   </layout>
+  </widget>
+  <widget class="CWizardPage" name="NotificationsPage">
+   <property name="title">
+    <string>NitroShare Setup</string>
+   </property>
+   <property name="subTitle">
+    <string>Deciding what notifications to receive.</string>
+   </property>
+   <attribute name="pageId">
+    <string notr="true">CFirstStartWizard::NotificationsPage</string>
+   </attribute>
+   <layout class="QVBoxLayout" name="verticalLayout_5">
+    <property name="spacing">
+     <number>12</number>
+    </property>
+    <item>
+     <widget class="QLabel" name="NotificationsLabel">
+      <property name="text">
+       <string>NitroShare can provide notifications for different events that take place while the program is running. For example, you can choose to receive notifications when a new machine joins the network or when you receive files. Please use the slider to adjust how many notifications you receive.</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QSlider" name="NotificationsSlider">
+      <property name="maximum">
+       <number>3</number>
+      </property>
+      <property name="pageStep">
+       <number>1</number>
+      </property>
+      <property name="value">
+       <number>2</number>
+      </property>
+      <property name="tracking">
+       <bool>true</bool>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="invertedAppearance">
+       <bool>false</bool>
+      </property>
+      <property name="invertedControls">
+       <bool>false</bool>
+      </property>
+      <property name="tickPosition">
+       <enum>QSlider::TicksBelow</enum>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="NotificationsDescription">
+      <property name="text">
+       <string/>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="CWizardPage" name="FinishPage">
+   <property name="title">
+    <string>NitroShare Setup</string>
+   </property>
+   <property name="subTitle">
+    <string>Completing the configuration phase.</string>
+   </property>
+   <attribute name="pageId">
+    <string notr="true">CFirstStartWizard::FinishPage</string>
+   </attribute>
+   <layout class="QVBoxLayout" name="verticalLayout_3">
+    <property name="spacing">
+     <number>12</number>
+    </property>
+    <item>
+     <widget class="QLabel" name="ThankYouLabel">
+      <property name="text">
+       <string>Thank you! NitroShare has finished collecting all of the information that it needs to complete the configuration process.</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QLabel" name="StartLabel">
+      <property name="text">
+       <string>The application will start after you click &quot;Finish&quot;.</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+      </property>
+      <property name="wordWrap">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>CBroadcastDiscoveryWidget</class>
+   <extends>QWidget</extends>
+   <header>widgets/CBroadcastDiscoveryWidget.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>CWizardPage</class>
+   <extends>QWizardPage</extends>
+   <header>dialogs/CFirstStartWizard.h</header>
+   <container>1</container>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>CFirstStartWizard</sender>
+   <signal>accepted()</signal>
+   <receiver>CFirstStartWizard</receiver>
+   <slot>OnFinished()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>199</x>
+     <y>149</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>199</x>
+     <y>149</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>CFirstStartWizard</sender>
+   <signal>currentIdChanged(int)</signal>
+   <receiver>CFirstStartWizard</receiver>
+   <slot>OnPageChanged(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>249</x>
+     <y>174</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>249</x>
+     <y>174</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>NotificationsSlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>CFirstStartWizard</receiver>
+   <slot>OnNotificationsChanged(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>49</x>
+     <y>79</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>249</x>
+     <y>174</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>OnFinished()</slot>
+  <slot>OnPageChanged(int)</slot>
+  <slot>OnNotificationsChanged(int)</slot>
+ </slots>
+</ui>

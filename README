@@ -1,0 +1,66 @@
+NitroShare - A Tool for Sharing Files over a Local Network
+Copyright 2012 - Nathan Osman
+
+INTRODUCTION
+
+Have you ever sat down in front of your computer and realized that you need a
+file that's stored on another machine on your local network? You immediately
+begin thinking of ways to transfer the file. If both machines are using the same
+operating system, you might be able to simply mount the drive on the remote
+machine containing the file. If not, you might have to resort to using a flash
+drive or a commercial syncing service like DropBox. If things really get out of
+hand, you might even find yourself setting up an FTP server. It seems like there
+should be an easier way to just transfer a file.
+
+There is. NitroShare.
+
+This tool takes the hassle out of transferring files from one machine to another
+over your local network. Simply drag the file on to the Share Box and pick which
+machine you want to send it to. That's it. It doesn't matter if the other
+machine is running Windows, Mac, or Linux. NitroShare just works.
+
+FEATURES
+
+- Automatic discovery of other machines on the local network.
+- Ability to send one or many files across the network.
+- Support for compressing the files and performing CRC checks upon arrival.
+- Compiles and runs on all platforms supported by Qt (Windows, Mac, Linux)
+- Integrates with the host OS, using application indicators on Ubuntu and the
+  system tray on Windows, for example.
+- A large number of settings that you can tweak for maximum performance.
+- A configuration wizard that guides you through the process of setting up the
+  application.
+- Completely open source (released under the GPLv3).
+
+COMPILING
+
+Because NitroShare is written in C++ and uses the cross-platform Qt framework,
+you can build the program on a number of different platforms. Before building,
+you need to make sure you have the following tools and libraries installed:
+
+- Qt SDK (4.7 or later)
+- QJson
+- qxmlrpc
+- Bazaar (for fetching the latest NitroShare source code)
+
+The basic build instructions are as follows:
+
+1. Create a folder and grab the latest source code for NitroShare from
+   Launchpad:
+
+   mkdir nitroshare
+   cd nitroshare
+   bzr pull lp:nitroshare
+
+2. Build the project.
+
+   qmake
+   make
+
+NAUTILUS INTEGRATION
+
+NitroShare ships with a small Python script that adds a menu item to Nautilus'
+right-click menu, making it easy to send files from within Nautilus windows. You
+can install this extension by simply copying 'nautilus/nitroshare.py' to
+'~/.local/share/nautilus-python/extensions'. You will need to restart Nautilus
+before the menu item will show up.

@@ -1,0 +1,571 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2012-07-06 11:59-0700\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Translate Toolkit 1.9.0\n"
+
+#: CAboutDialog#1
+msgid "About NitroShare"
+msgstr ""
+
+#: CAboutDialog#2
+msgctxt "CAboutDialog#2"
+msgid "General"
+msgstr ""
+
+#: CAboutDialog#3
+msgid "<h2>NitroShare</h2>"
+msgstr ""
+
+#: CAboutDialog#4
+msgid ""
+"<i>Copyright 2012 Nathan Osman</i><br /><br />\n"
+"You should have received a copy of the GNU General Public License along with "
+"this program.  If not, see &lt;http://www.gnu.org/licenses/&gt;"
+msgstr ""
+
+#: CAboutDialog#5
+msgid "Special Thanks"
+msgstr ""
+
+#: CAboutDialog#6
+msgid ""
+"The author would like to thank the following people for their valuable "
+"contributions to NitroShare:"
+msgstr ""
+
+#: CAboutDialog#7
+msgid "Technical"
+msgstr ""
+
+#: CAboutDialog#8
+msgid "The following technical information was gathered from your computer:"
+msgstr ""
+
+#: CAboutDialog#9
+msgid "Name"
+msgstr ""
+
+#: CAboutDialog#10
+msgid "Value"
+msgstr ""
+
+#: CAboutDialog#11
+msgid "Version %1 - <i>built %2 %3</i>"
+msgstr ""
+
+#: CAboutDialog#12
+msgid "Debug build"
+msgstr ""
+
+#: CAboutDialog#13
+msgid "Yes"
+msgstr ""
+
+#: CAboutDialog#14
+msgid "No"
+msgstr ""
+
+#: CAboutDialog#15
+msgid "Qt version"
+msgstr ""
+
+#: CAcceptPromptDialog#1
+msgid "Accept Files"
+msgstr ""
+
+#: CAcceptPromptDialog#2
+msgid "Filename"
+msgstr ""
+
+#: CAcceptPromptDialog#3
+msgid "Size"
+msgstr ""
+
+#: CAcceptPromptDialog#4
+#, fuzzy
+msgid "%1 would like to send you the following file(s) (%2):"
+msgstr ""
+"\n"
+"            \n"
+"        "
+
+#: CAcceptPromptDialog#5
+#, fuzzy
+msgid "Do you wish to accept the file(s)?"
+msgstr ""
+"\n"
+"            \n"
+"        "
+
+#: CAcceptPromptDialog#6
+msgid "%1 bytes"
+msgstr ""
+
+#: CAcceptPromptDialog#7
+msgid "%1 KB"
+msgstr ""
+
+#: CAcceptPromptDialog#8
+msgid "%1 MB"
+msgstr ""
+
+#: CAcceptPromptDialog#9
+msgid "%1 GB"
+msgstr ""
+
+#: CBasicBroadcaster#1
+msgid ""
+"Unable to find an IPv4 broadcast and netmask address for the current network "
+"interface."
+msgstr ""
+
+#: CBasicListener#1
+msgid "Unable to listen for broadcast notifications."
+msgstr ""
+
+#: CBasicListener#2
+msgctxt "CBasicListener#2"
+msgid "Warning:"
+msgstr ""
+
+#: CBasicListener#3
+msgid ""
+"One of the machines on your network ('%1') is running a different version of "
+"NitroShare than this machine (%2). Please ensure both machines are running "
+"the latest version of NitroShare."
+msgstr ""
+
+#: CBroadcastDiscoveryWidget#1
+msgid "Broadcast Discovery"
+msgstr ""
+
+#: CBroadcastDiscoveryWidget#2
+msgid "Idle."
+msgstr ""
+
+#: CBroadcastDiscoveryWidget#3
+msgid "Searching for other machines..."
+msgstr ""
+
+#: CBroadcastDiscoveryWidget#4
+msgid "Network discovery complete!"
+msgstr ""
+
+#: CBroadcastServer#1
+msgid "%1 has joined the network."
+msgstr ""
+
+#: CBroadcastServer#2
+msgid "%1 has left the network."
+msgstr ""
+
+#: CFileReceiver#1
+msgid "%1 file(s) were received."
+msgstr ""
+
+#: CFileReceiver#2
+msgid "Unable to parse the JSON response sent from the client."
+msgstr ""
+
+#: CFileReceiver#3
+msgid "Unable to create the directory for received files."
+msgstr ""
+
+#: CFileReceiver#4
+msgid "Unable to extract CRC checksum from received file. Skipping file."
+msgstr ""
+
+#: CFileReceiver#5
+msgid "CRC integrity check failed. Skipping file."
+msgstr ""
+
+#: CFileReceiver#6
+msgid "Unable to store received file '%1'. Skipping file."
+msgstr ""
+
+#: CFileSender#1
+msgid "The remote machine aborted the transfer."
+msgstr ""
+
+#: CFileSender#2
+msgctxt "CFileSender#2"
+msgid "Warning:"
+msgstr ""
+
+#: CFileSender#3
+msgid ""
+"Transferring files larger than 30 MB with compression enabled can "
+"significantly slow down your computer.\n"
+"\n"
+"Would you like to temporarily disable compression for these files?"
+msgstr ""
+
+#: CFileSender#4
+msgid "Unable to open '%1' for reading. Aborting transfer."
+msgstr ""
+
+#: CFileServer#1
+msgid "Unable to find an IPv4 address on the current network interface."
+msgstr ""
+
+#: CFileServer#2
+msgid "Unable to listen on TCP port %1."
+msgstr ""
+
+#: CFirstStartWizard#1
+msgid "NitroShare Wizard"
+msgstr ""
+
+#: CFirstStartWizard#2
+msgid "NitroShare Setup"
+msgstr ""
+
+#: CFirstStartWizard#3
+msgid "Gathering information for initial configuration."
+msgstr ""
+
+#: CFirstStartWizard#4
+msgid ""
+"Welcome to NitroShare! To help make it easier to set everything up, "
+"NitroShare can guide you through the configuration process."
+msgstr ""
+
+#: CFirstStartWizard#5
+msgid "Help me set up NitroShare"
+msgstr ""
+
+#: CFirstStartWizard#6
+msgid "I will configure NitroShare myself"
+msgstr ""
+
+#: CFirstStartWizard#7
+msgid "Collecting basic information about the client."
+msgstr ""
+
+#: CFirstStartWizard#8
+msgid ""
+"Please enter a name for your machine. This name will be displayed to other "
+"machines on the network."
+msgstr ""
+
+#: CFirstStartWizard#9
+msgid "Discovering other machines on the local network."
+msgstr ""
+
+#: CFirstStartWizard#10
+msgid ""
+"NitroShare needs to determine which network interface to use. Please run "
+"NitroShare (or visit this wizard page) with any other machine on your "
+"network. This process may take up to 20 seconds to complete."
+msgstr ""
+
+#: CFirstStartWizard#11
+msgid "Deciding what notifications to receive."
+msgstr ""
+
+#: CFirstStartWizard#12
+msgid ""
+"NitroShare can provide notifications for different events that take place "
+"while the program is running. For example, you can choose to receive "
+"notifications when a new machine joins the network or when you receive "
+"files. Please use the slider to adjust how many notifications you receive."
+msgstr ""
+
+#: CFirstStartWizard#13
+msgid "Completing the configuration phase."
+msgstr ""
+
+#: CFirstStartWizard#14
+msgid ""
+"Thank you! NitroShare has finished collecting all of the information that it "
+"needs to complete the configuration process."
+msgstr ""
+
+#: CFirstStartWizard#15
+msgid "The application will start after you click \"Finish\"."
+msgstr ""
+
+#: CFirstStartWizard#16
+msgid "<b>No notifications:</b> you will not receive any notifications."
+msgstr ""
+
+#: CFirstStartWizard#17
+msgid ""
+"<b>Error notifications:</b> you will only receive a notification when a "
+"critical error occurs."
+msgstr ""
+
+#: CFirstStartWizard#18
+msgid ""
+"<b>Standard notifications:</b> you will receive a notification when errors "
+"occur and when files are received."
+msgstr ""
+
+#: CFirstStartWizard#19
+msgid ""
+"<b>All notifications:</b> you will receive notifications for all events, "
+"including new machines joining and leaving the local network."
+msgstr ""
+
+#: CMachineSelectionDialog#1
+msgid "Select Machine"
+msgstr ""
+
+#: CMachineSelectionDialog#2
+msgctxt "CMachineSelectionDialog#2"
+msgid "[Select Machine]"
+msgstr ""
+
+#: CSettingsDialog#1
+msgid "NitroShare Settings"
+msgstr ""
+
+#: CSettingsDialog#2
+msgctxt "CSettingsDialog#2"
+msgid "General"
+msgstr ""
+
+#: CSettingsDialog#3
+msgid "Machine name:"
+msgstr ""
+
+#: CSettingsDialog#4
+msgid "Directory to store received files in:"
+msgstr ""
+
+#: CSettingsDialog#5
+msgid "Browse"
+msgstr ""
+
+#: CSettingsDialog#6
+msgid "Load at startup"
+msgstr ""
+
+#: CSettingsDialog#7
+msgid "Compress files (using zlib)"
+msgstr ""
+
+#: CSettingsDialog#8
+msgid "Calculate checksum of files"
+msgstr ""
+
+#: CSettingsDialog#9
+msgid "Appearance"
+msgstr ""
+
+#: CSettingsDialog#10
+msgid "Application indicator / system tray icon:"
+msgstr ""
+
+#: CSettingsDialog#11
+msgid "Dark"
+msgstr ""
+
+#: CSettingsDialog#12
+msgid "Light"
+msgstr ""
+
+#: CSettingsDialog#13
+msgid "Notifications"
+msgstr ""
+
+#: CSettingsDialog#14
+msgid "Display notifications for the following events:"
+msgstr ""
+
+#: CSettingsDialog#15
+msgid "A new PC running NitroShare joins the network"
+msgstr ""
+
+#: CSettingsDialog#16
+msgid "A PC running NitroShare leaves the network"
+msgstr ""
+
+#: CSettingsDialog#17
+msgid "Files are received"
+msgstr ""
+
+#: CSettingsDialog#18
+msgid "An error occurs "
+msgstr ""
+
+#: CSettingsDialog#19
+msgid "Security"
+msgstr ""
+
+#: CSettingsDialog#20
+msgid "Automatically accept all files"
+msgstr ""
+
+#: CSettingsDialog#21
+msgid "Accept files that match the regular expression below:"
+msgstr ""
+
+#: CSettingsDialog#22
+msgid "Always prompt before accepting files"
+msgstr ""
+
+#: CSettingsDialog#23
+msgid "Do not accept any files"
+msgstr ""
+
+#: CSettingsDialog#24
+msgid "Network"
+msgstr ""
+
+#: CSettingsDialog#25
+msgid "Network interface:"
+msgstr ""
+
+#: CSettingsDialog#26
+msgid ""
+"<b>Warning:</b> changing the settings below may cause NitroShare to stop "
+"functioning or use excessive bandwidth. Proceed with caution."
+msgstr ""
+
+#: CSettingsDialog#27
+msgid "Broadcast Settings"
+msgstr ""
+
+#: CSettingsDialog#28
+msgid "Broadcast port:"
+msgstr ""
+
+#: CSettingsDialog#29
+msgid "Broadcast interval (in milliseconds):"
+msgstr ""
+
+#: CSettingsDialog#30
+msgid "Timeout interval (in seconds):"
+msgstr ""
+
+#: CSettingsDialog#31
+msgid "Transmission Settings"
+msgstr ""
+
+#: CSettingsDialog#32
+msgid "TCP port:"
+msgstr ""
+
+#: CSettingsDialog#33
+msgctxt "CSettingsDialog#33"
+msgid "Select a Directory"
+msgstr ""
+
+#: CSettingsDialog#34
+msgctxt "CSettingsDialog#34"
+msgid "Warning:"
+msgstr ""
+
+#: CSettingsDialog#35
+msgid ""
+"Broadcast intervals less than 2 seconds are strongly discouraged and will "
+"have a very negative impact on performance.\n"
+"\n"
+"Are you sure you want to continue?"
+msgstr ""
+
+#: CShareBox#1
+msgctxt "CShareBox#1"
+msgid "Add ShareBox"
+msgstr ""
+
+#: CShareBox#2
+msgid "Remove"
+msgstr ""
+
+#: CShareBox#3
+msgid "Quit NitroShare"
+msgstr ""
+
+#: CShareBox#4
+msgctxt "CShareBox#4"
+msgid "[Select Machine]"
+msgstr ""
+
+#: CTrayIcon#1
+msgid "Send Files To"
+msgstr ""
+
+#: CTrayIcon#2
+msgid "Send Directory To"
+msgstr ""
+
+#: CTrayIcon#3
+msgid "Please select a machine to create a ShareBox for:"
+msgstr ""
+
+#: CTrayIcon#4
+msgid "NitroShare Error"
+msgstr ""
+
+#: CTrayIcon#5
+msgid "NitroShare Notification"
+msgstr ""
+
+#: CTrayIcon#6
+msgid "Select Files to Send"
+msgstr ""
+
+#: CTrayIcon#7
+msgid "Please select a machine to send these files to:"
+msgstr ""
+
+#: CTrayIcon#8
+msgctxt "CTrayIcon#8"
+msgid "Error:"
+msgstr ""
+
+#: CTrayIcon#9
+msgid ""
+"There are currently no machines on the local network that can receive files."
+msgstr ""
+
+#: CTrayIcon#10
+msgid "This machine is currently offline."
+msgstr ""
+
+#: CTrayIcon#11
+msgctxt "CTrayIcon#11"
+msgid "Select a Directory"
+msgstr ""
+
+#: CTrayIcon#12
+msgctxt "CTrayIcon#12"
+msgid "Add ShareBox"
+msgstr ""
+
+#: CTrayIcon#13
+msgid "Settings"
+msgstr ""
+
+#: CTrayIcon#14
+msgid "About"
+msgstr ""
+
+#: CTrayIcon#15
+msgid "Exit"
+msgstr ""
+
+#: CTrayIcon#16
+msgid "[empty]"
+msgstr ""
+
+#: QObject#1
+msgctxt "QObject#1"
+msgid "Error:"
+msgstr ""
+
+#: QObject#2
+msgid ""
+"NitroShare is already running. Please close the current instance before "
+"launching the application again."
+msgstr ""
