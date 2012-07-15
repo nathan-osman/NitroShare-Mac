@@ -62,7 +62,7 @@ void Defaults::Init()
     Map["General/CompressFiles"]          = false;
     Map["General/CalculateChecksum"]      = false;
 
-    Map["Appearance/Icon"] = IconLight;
+    Map["Appearance/Icon"] = IconDark;
 
     Map["Notifications/NewPC"]         = false;
     Map["Notifications/PCQuit"]        = false;
