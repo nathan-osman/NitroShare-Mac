@@ -50,6 +50,12 @@ int main(int argc, char *argv[])
     a.setOrganizationName("Nathan Osman");
     a.setOrganizationDomain("quickmediasolutions.com");
 
+    /* Set icon for Mac */
+    QApplication::setWindowIcon(QIcon("icon.icns"));
+    // TODO: change icon by copying into app bundle, current
+    // implementation only changes icon after the program
+    // launches, and shows default icon while launching.
+
     /* Initialize the locale and load the application defaults. */
     InitLocale();
     Defaults::Init();

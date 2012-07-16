@@ -97,3 +97,5 @@ LIBS += -L..
 # On the Windows platform we provide a resource file that defines
 # an icon and some internal version information and meta-data.
 win32:RC_FILE = resource/resource.rc
+
+ICON = resource/icon.icns
