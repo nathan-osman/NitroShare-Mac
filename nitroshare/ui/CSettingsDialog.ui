@@ -58,10 +58,13 @@
        <item>
         <widget class="QCheckBox" name="LoadAtStartup">
          <property name="enabled">
-          <bool>false</bool>
+          <bool>true</bool>
          </property>
          <property name="text">
           <string>Load at startup</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
          </property>
         </widget>
        </item>

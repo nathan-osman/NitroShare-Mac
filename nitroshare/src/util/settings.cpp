@@ -57,7 +57,7 @@ QString Settings::GetID()
     return uuid;
 }
 
-#ifdef Q_OS_LINUX
+#if defined(Q_OS_LINUX)
 QDir GetStartupDir()
 {
     /* Find and make sure the autostart directory exists. */
@@ -68,6 +68,18 @@ QDir GetStartupDir()
     dir.cd(".config/autostart");
     return dir.absolutePath();
 }
+#elif defined(Q_OS_MACX)
+QDir GetStartupDir()
+{
+    /* Find and make sure the autostart directory exists. */
+    QDir dir = QDir::home();
+    if(!dir.exists("Library/LaunchAgents"))
+        dir.mkpath("Library/LaunchAgents");
+
+    dir.cd("Library/LaunchAgents");
+    return dir.absolutePath();
+}
+
 #endif
 
 bool Settings::GetLoadAtStartup()
@@ -80,6 +92,9 @@ bool Settings::GetLoadAtStartup()
     return registry.contains("NitroShare");
 #elif defined(Q_OS_LINUX)
     return GetStartupDir().exists("extras-nitroshare.desktop");
+#elif defined(Q_OS_MACX)
+    return GetStartupDir().exists("com.nitroshare.launcher.plist");
+
 #endif
 
     /* Just return false on other platforms. */
@@ -100,6 +115,11 @@ void Settings::SetLoadAtStartup(bool load)
 
     if(load) QFile::copy(":/other/extras-nitroshare.desktop", desktop_file);
     else     QFile::remove(desktop_file);
+#elif defined(Q_OS_MACX)
+    QString plist_file = GetStartupDir().absoluteFilePath("com.nitroshare.launcher.plist");
+
+    if(load) QFile::copy("com.nitroshare.launcher.plist", plist_file);
+    else     QFile::remove(plist_file);
 #else
     /* Mark the variable as unused. */
     Q_UNUSED(load);
