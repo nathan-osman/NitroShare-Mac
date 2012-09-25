@@ -120,8 +120,7 @@ void CTrayIcon::OnRemoveShareBox()
 {
     CShareBox * box = qobject_cast<CShareBox *>(sender());
     m_shareboxes.removeOne(box);
-    delete box;
-
+    box->deleteLater();
     UpdateShareBoxes();
 }
 
