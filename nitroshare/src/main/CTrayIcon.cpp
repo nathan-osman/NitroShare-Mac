@@ -250,8 +250,6 @@ void CTrayIcon::CreateContextMenu()
     menu->addAction(tr("Exit"), QCoreApplication::instance(), SLOT(quit()));
 
     setContextMenu(menu);
-    qt_mac_set_dock_menu(menu);
-
 }
 
 void CTrayIcon::CreateMachineMenu(QMenu & menu, const char * slot)
@@ -308,4 +306,20 @@ void CTrayIcon::CreateShareBoxes()
            of the machine it is for. */
         CreateShareBox(map["id"].toString(), map["name"].toByteArray())->move(map["pos"].toPoint());
     }
+
+    /* Make the menu items for the Mac Dock. Items are duplicates of the
+       context menu, Except for Send Files and Send Directory, also Exit is removed
+       to avoid duplicate functionality. */
+
+    QMenu * menu = new QMenu;
+
+    menu->addAction(tr("Send Files"), this, SLOT(OnSendFiles()));
+    menu->addAction(tr("Send Directory"), this, SLOT(OnSendDirectory()));
+    menu->addSeparator();
+    menu->addAction(tr("Add ShareBox"), this, SLOT(OnAddShareBox()));
+    menu->addSeparator();
+    menu->addAction(tr("Settings"), this, SLOT(OnSettings()));
+    menu->addAction(tr("About"),    this, SLOT(OnAbout()));
+
+    qt_mac_set_dock_menu(menu);
 }
