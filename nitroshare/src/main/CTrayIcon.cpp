@@ -26,6 +26,8 @@
 #include "main/CTrayIcon.h"
 #include "util/defaults.h"
 #include "util/settings.h"
+extern void qt_mac_set_dock_menu(QMenu *);
+
 
 CTrayIcon::CTrayIcon()
     : m_send_files_menu(tr("Send Files To")), m_send_directory_menu(tr("Send Directory To"))
@@ -248,6 +250,8 @@ void CTrayIcon::CreateContextMenu()
     menu->addAction(tr("Exit"), QCoreApplication::instance(), SLOT(quit()));
 
     setContextMenu(menu);
+    qt_mac_set_dock_menu(menu);
+
 }
 
 void CTrayIcon::CreateMachineMenu(QMenu & menu, const char * slot)
