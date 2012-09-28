@@ -30,6 +30,9 @@ CSettingsDialog::CSettingsDialog()
 {
     ui->setupUi(this);
 
+    /* Make tool window for Mac so windows do not appear below active window */
+    setWindowFlags(Qt::Tool);
+
     /* Set the validator for the intervals. */
     ui->BroadcastInterval->setValidator(new QIntValidator(this));
     ui->TimeoutInterval->setValidator(new QIntValidator(this));

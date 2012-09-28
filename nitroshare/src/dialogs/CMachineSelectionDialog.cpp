@@ -23,6 +23,9 @@ CMachineSelectionDialog::CMachineSelectionDialog(MachineMap machine_list, QStrin
     ui->setupUi(this);
     ui->MachinesLabel->setText(label);
 
+    /* Make tool window for Mac so windows do not appear below active window */
+    setWindowFlags(Qt::Tool);
+
     /* Populate the machine list. */
     for(MachineMap::const_iterator i = machine_list.constBegin();i != machine_list.constEnd();++i)
     {

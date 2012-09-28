@@ -23,6 +23,9 @@ CAboutDialog::CAboutDialog()
 {
     ui->setupUi(this);
 
+    /* Make tool window for Mac so windows do not appear below active window */
+    setWindowFlags(Qt::Tool);
+
     /* Retrieve the current version and display it in the dialog. */
     ui->Version->setText(tr("Version %1 - <i>built %2 %3</i>").arg(Definitions::Version)
                                                               .arg(__DATE__)
