@@ -47,7 +47,7 @@ CShareBox::CShareBox()
        to the desktop as a widget. This isn't as easy as it sounds, however and
        the values below were arrived upon by much trial and error. They seem
        to work on all platforms / window managers tested so far. */
-    setWindowFlags(Qt::FramelessWindowHint | Qt::WindowStaysOnBottomHint);
+    setWindowFlags(Qt::FramelessWindowHint);
     setAttribute(Qt::WA_TranslucentBackground);
     setAttribute(Qt::WA_X11NetWmWindowTypeDock);
 
