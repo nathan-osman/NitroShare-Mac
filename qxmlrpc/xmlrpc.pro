@@ -4,6 +4,7 @@ TARGET   = ../../qxmlrpc
 CONFIG += warn_on
 CONFIG += staticlib
 CONFIG += precompile_header
+CONFIG += ppc
 
 QT += xml network
 

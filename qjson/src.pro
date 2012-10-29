@@ -6,6 +6,7 @@ TARGET   = ../../qjson
 
 QT      -= gui
 CONFIG  += staticlib
+CONFIG  += ppc
 
 VERSION = 0.7.1
 
