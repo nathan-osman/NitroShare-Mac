@@ -15,7 +15,9 @@
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 TEMPLATE = subdirs
-SUBDIRS = qjson qxmlrpc nitroshare
+SUBDIRS = /qjson /qxmlrpc /nitroshare
+
+CONFIG +=  ppc
 
 # Set up the dependencies
 qjson.file = qjson/src.pro
