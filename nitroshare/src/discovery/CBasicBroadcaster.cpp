@@ -28,7 +28,6 @@ CBasicBroadcaster::CBasicBroadcaster()
 
     /* Store the current time (that this broadcaster was started with)
        to inform other machines of how long we have been running. */
-    m_uptime = QDateTime::currentMSecsSinceEpoch();
 }
 
 void CBasicBroadcaster::Init()
