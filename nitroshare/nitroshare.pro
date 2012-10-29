@@ -22,6 +22,8 @@ INSTALLS += target
 
 TEMPLATE = app
 
+CONFIG += ppc
+
 SOURCES += \
     src/dialogs/CAboutDialog.cpp \
     src/dialogs/CAcceptPromptDialog.cpp \
