@@ -12,5 +12,6 @@
         <file>images/single.png</file>
         <file>images/success.png</file>
         <file>other/extras-nitroshare.desktop</file>
+        <file>other/com.nitroshare.launcher.plist</file>
     </qresource>
 </RCC>

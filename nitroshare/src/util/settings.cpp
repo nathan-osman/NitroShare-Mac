@@ -118,7 +118,7 @@ void Settings::SetLoadAtStartup(bool load)
 #elif defined(Q_OS_MACX)
     QString plist_file = GetStartupDir().absoluteFilePath("com.nitroshare.launcher.plist");
 
-    if(load) QFile::copy("com.nitroshare.launcher.plist", plist_file);
+    if(load) QFile::copy(":/other/com.nitroshare.launcher.plist", plist_file);
     else     QFile::remove(plist_file);
 #else
     /* Mark the variable as unused. */
