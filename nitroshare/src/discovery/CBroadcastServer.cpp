@@ -65,10 +65,14 @@ void CBroadcastServer::OnPing(QHostAddress address, QVariantMap map)
     m_machines[id].name      = map["name"].toByteArray();
     m_machines[id].address   = address;
     m_machines[id].port      = map["transmission_port"].toUInt();
+    m_machines[id].last_ping = (QDateTime().toTime_t() * 1000);
 }
 
 void CBroadcastServer::OnTimer()
 {
+    qint64 current_time = (QDateTime().toTime_t() * 1000);
+    qint64 timeout      = Settings::Get("Network/TimeoutInterval").toInt() * 1000;
+
     /* Move through the map of machines, removing any that have expired. */
     QMutableMapIterator<QString, CMachine> i(m_machines);
     while(i.hasNext())
@@ -77,6 +81,7 @@ void CBroadcastServer::OnTimer()
 
         /* If the last ping from this machine + the user-specified timeout
            is greater than the current time, the machine is expired. */
+        if(i.value().last_ping + timeout < current_time)
         {
             if(Settings::Notify("PCQuit"))
                 emit Information(tr("%1 has left the network.").arg(QString(i.value().name)));
