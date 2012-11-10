@@ -46,7 +46,7 @@ CSettingsDialog::CSettingsDialog()
 
 CSettingsDialog::~CSettingsDialog()
 {
-    delete ui;
+  delete ui;
 }
 
 void CSettingsDialog::OnBrowse()
@@ -62,6 +62,7 @@ void CSettingsDialog::LoadSettings()
     ui->MachineName->setText(Settings::Get("General/MachineName").toString());
     ui->ReceivedFilesDirectory->setText(Settings::Get("General/ReceivedFilesDirectory").toString());
     ui->LoadAtStartup->setChecked(Settings::GetLoadAtStartup());
+    ui->SystemTray->setChecked(Settings::GetSystemTray());
     ui->CompressFiles->setChecked(Settings::Get("General/CompressFiles").toBool());
     ui->CalculateChecksum->setChecked(Settings::Get("General/CalculateChecksum").toBool());
 
@@ -127,6 +128,7 @@ void CSettingsDialog::accept()
     Settings::Set("General/MachineName",            ui->MachineName->text());
     Settings::Set("General/ReceivedFilesDirectory", ui->ReceivedFilesDirectory->text());
     Settings::SetLoadAtStartup(ui->LoadAtStartup->isChecked());
+    Settings::SetSystemTray(ui->SystemTray->isChecked());
     Settings::Set("General/CompressFiles",          ui->CompressFiles->isChecked());
     Settings::Set("General/CalculateChecksum",      ui->CalculateChecksum->isChecked());
 

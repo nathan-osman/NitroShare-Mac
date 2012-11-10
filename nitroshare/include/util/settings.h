@@ -33,6 +33,10 @@ namespace Settings {
     // Load at startup configuration
     bool GetLoadAtStartup();
     void SetLoadAtStartup(bool);
+
+    // SystemTray configuration
+    bool GetSystemTray();
+    void SetSystemTray(bool);
 }
 
 #endif // SETTINGS_H

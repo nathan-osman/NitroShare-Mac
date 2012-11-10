@@ -19,6 +19,7 @@
 #include <QFile>
 #include <QSettings>
 #include <QUuid>
+#include <QProcess>
 
 #include "util/defaults.h"
 #include "util/settings.h"
@@ -124,4 +125,35 @@ void Settings::SetLoadAtStartup(bool load)
     /* Mark the variable as unused. */
     Q_UNUSED(load);
 #endif
+}
+
+bool Settings::GetSystemTray()
+{
+    /* Setup up Path to App Bundle, must be in Applications folder */
+        QString AppPath("/Applications/nitroshare.app/Contents/Info");
+
+    /* Use Qprocess to run defaults to read LSUIElement varrible */
+        QProcess DefaultsLSUIElementRead;
+                 DefaultsLSUIElementRead.start("defaults", QStringList() << "read" << AppPath << "LSUIElement");
+                 DefaultsLSUIElementRead.waitForFinished();
+
+    /* Return output, or if LSUIElement does not exist return false */
+            if (DefaultsLSUIElementRead.exitCode() == 0)
+                return DefaultsLSUIElementRead.readAllStandardOutput().trimmed() != "0";
+            else
+                return false;
+}
+
+void Settings::SetSystemTray(bool load)
+{
+        QString AppPath("/Applications/nitroshare.app/Contents/Info");
+
+    /* Write LSUIElement */
+        QProcess DefaultsLSUIElementWrite;
+                 DefaultsLSUIElementWrite.start("defaults", QStringList() << "write" << AppPath << "LSUIElement" << (load?"1":"0"));
+                 DefaultsLSUIElementWrite.waitForFinished();
+
+    /* Touch app bundle */
+                 DefaultsLSUIElementWrite.start("touch", QStringList() << "/Applications/nitroshare.app/");
+                 DefaultsLSUIElementWrite.waitForFinished();
 }

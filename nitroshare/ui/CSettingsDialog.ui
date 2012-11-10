@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>470</width>
-    <height>450</height>
+    <height>483</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -91,6 +91,13 @@
         <widget class="QCheckBox" name="CalculateChecksum">
          <property name="text">
           <string>Calculate checksum of files</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="SystemTray">
+         <property name="text">
+          <string>System tray only (requires restart)</string>
          </property>
         </widget>
        </item>
