@@ -49,6 +49,7 @@ CShareBox::CShareBox()
        to work on all platforms / window managers tested so far. */
     setWindowFlags(Qt::FramelessWindowHint);
     setAttribute(Qt::WA_TranslucentBackground);
+    setAttribute(Qt::WA_MacNoShadow);
     setAttribute(Qt::WA_X11NetWmWindowTypeDock);
 
     setAcceptDrops(true);
