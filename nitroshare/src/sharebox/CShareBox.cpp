@@ -56,6 +56,10 @@ CShareBox::CShareBox()
     setWindowTitle("NitroShare Share Box"); /* Ideally this is never seen anywhere. */
 
     Init();
+
+    QFile::copy(":/images/multiple.png", "/Applications/nitroshare.app/Contents/Resources/multiple.png");
+    QFile::copy(":/images/single.png", "/Applications/nitroshare.app/Contents/Resources/single.png");
+    QFile::copy(":/images/sharebox.png", "/Applications/nitroshare.app/Contents/Resources/sharebox.png");
 }
 
 void CShareBox::OnProgress(int progress)
@@ -192,7 +196,7 @@ void CShareBox::paintEvent(QPaintEvent *)
     painter.scale(m_draw_scale, m_draw_scale);
 
     /* First draw the background. */
-    painter.drawPixmap(0, 0, 256, 256, QPixmap(":/images/sharebox.png"));
+    painter.drawPixmap(0, 0, 256, 256, QPixmap("/Applications/nitroshare.app/Contents/Resources/sharebox.png"));
 
     /* Then draw the blue border if applicable. */
     if(m_highlight)
@@ -252,5 +256,5 @@ void CShareBox::paintEvent(QPaintEvent *)
     }
 
     /* Lastly draw the icon. */
-    painter.drawPixmap(80, 16, 96, 96, QPixmap(m_id.isEmpty()?":/images/multiple.png":":/images/single.png"));
+    painter.drawPixmap(80, 16, 96, 96, QPixmap(m_id.isEmpty()?"/Applications/nitroshare.app/Contents/Resources/multiple.png":"/Applications/nitroshare.app/Contents/Resources/single.png"));
 }
