@@ -14,45 +14,15 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 
-#ifndef CFILERECEIVER_H
-#define CFILERECEIVER_H
+#ifndef LIBNITROSHARE_GLOBAL_H
+#define LIBNITROSHARE_GLOBAL_H
 
-#include <QDir>
-#include <QVariantList>
-#include <QVariantMap>
+#include <QtCore/qglobal.h>
 
-#include "file/CBasicSocket.h"
-#include "file/CFileHeaderManager.h"
+#if defined(LIBNITROSHARE_LIBRARY)
+#  define LIBNITROSHARESHARED_EXPORT Q_DECL_EXPORT
+#else
+#  define LIBNITROSHARESHARED_EXPORT Q_DECL_IMPORT
+#endif
 
-class CFileReceiver : public CBasicSocket
-{
-    Q_OBJECT
-
-    public:
-
-        CFileReceiver(QObject *);
-
-        void Start(int);
-
-    private slots:
-
-        void OnData(QByteArray);
-
-    private:
-
-        enum ReceiveState {
-            WaitingForHeader,
-            WaitingForTransfer
-        };
-
-        ReceiveState m_state;
-
-        void ParseHeaders(QVariantMap);
-        bool TestAgainstPolicy(QString, QString &, QVariantList &);
-
-       CFileHeaderManager m_headers;
-
-       QDir m_directory;
-};
-
-#endif // CFILERECEIVER_H
+#endif // LIBNITROSHARE_GLOBAL_H

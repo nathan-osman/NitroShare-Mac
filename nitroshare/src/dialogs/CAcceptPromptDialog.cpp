@@ -17,7 +17,8 @@
 #include "dialogs/CAcceptPromptDialog.h"
 #include "ui_CAcceptPromptDialog.h"
 
-CAcceptPromptDialog::CAcceptPromptDialog(QString name, QList<CFileHeader *> & headers)
+CAcceptPromptDialog::CAcceptPromptDialog(QString name, const CFileHeaderManager & headers)
+
     : ui(new Ui::CAcceptPromptDialog)
 {
     ui->setupUi(this);
@@ -27,24 +28,30 @@ CAcceptPromptDialog::CAcceptPromptDialog(QString name, QList<CFileHeader *> & he
     ui->FileList->setColumnWidth(ui->FileList->columnAt(1), 250);
 
     /* Enter the files into the table, totalling up the size. */
+    int num_files = 0;
     qint64 total_size = 0;
 
-    foreach(CFileHeader * header, headers)
+    HeaderIterator i = headers.GetIterator();
+    while(i.hasNext())
     {
-        ui->FileList->insertRow(0);
-        ui->FileList->setItem(0, 0, new QTableWidgetItem(header->GetFilename()));
+        i.next();
 
-        QTableWidgetItem * cell = new QTableWidgetItem(FormatSize(header->GetUncompressedSize()));
+        ui->FileList->insertRow(0);
+        ui->FileList->setItem(0, 0, new QTableWidgetItem(i.value()->GetFilename()));
+
+        QTableWidgetItem * cell = new QTableWidgetItem(FormatSize(i.value()->GetSize()));
         cell->setTextAlignment(Qt::AlignRight | Qt::AlignVCenter);
         ui->FileList->setItem(0, 1, cell);
 
-        total_size += header->GetUncompressedSize();
+        ++num_files;
+        total_size += i.value()->GetSize();
     }
 
     /* Set the labels according to the information supplied. */
     ui->DescriptionLabel->setText(tr("%1 would like to send you the following file(s) (%2):", "",
-                                     headers.size()).arg(name).arg(FormatSize(total_size)));
-    ui->AcceptLabel->setText(tr("Do you wish to accept the file(s)?", "", headers.size()));
+                                     num_files).arg(name).arg(FormatSize(total_size)));
+    ui->AcceptLabel->setText(tr("Do you wish to accept the file(s)?", "", num_files));
+
 }
 
 CAcceptPromptDialog::~CAcceptPromptDialog()

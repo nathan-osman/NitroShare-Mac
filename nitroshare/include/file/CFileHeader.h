@@ -17,47 +17,62 @@
 #ifndef CFILEHEADER_H
 #define CFILEHEADER_H
 
+#include <QDir>
+#include <QFile>
+#include <QMap>
 #include <QObject>
 
 class CFileHeader : public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY(QString filename          READ GetFilename         WRITE SetFilename)
-    Q_PROPERTY(qint64  uncompressed_size READ GetUncompressedSize WRITE SetUncompressedSize)
-    Q_PROPERTY(bool    compressed        READ GetCompressed       WRITE SetCompressed)
-    Q_PROPERTY(bool    checksum          READ GetChecksum         WRITE SetChecksum)
+    Q_PROPERTY(int     id         READ GetID         WRITE SetID)
+    Q_PROPERTY(QString filename   READ GetFilename   WRITE SetFilename)
+    Q_PROPERTY(qint64  size       READ GetSize       WRITE SetSize)
+    Q_PROPERTY(bool    executable READ GetExecutable WRITE SetExecutable)
+    Q_PROPERTY(bool    read_only  READ GetReadOnly   WRITE SetReadOnly)
+ 
 
     public:
 
-        CFileHeader() : m_uncompressed_size(0), m_compressed(false), m_checksum(false) {}
-        CFileHeader(QString full_filename) : m_full_filename(full_filename), m_uncompressed_size(0),
-                                             m_compressed(false), m_checksum(false) {}
+        CFileHeader();
 
-        QString GetFullFilename() { return m_full_filename; }
+        int GetID() { return m_id; }
+        void SetID(int id) { m_id = id; }
 
         QString GetFilename() { return m_filename; }
         void SetFilename(QString filename) { m_filename = filename; }
 
-        qint64 GetUncompressedSize() { return m_uncompressed_size; }
-        void SetUncompressedSize(qint64 size) { m_uncompressed_size = size; }
+        qint64 GetSize() { return m_size; }
+        void SetSize(qint64 size) { m_size = size; }
 
-        bool GetCompressed() { return m_compressed; }
-        void SetCompressed(qint64 compressed) { m_compressed = compressed; }
+        bool GetExecutable() { return m_executable; }
+        void SetExecutable(bool executable) { m_executable = executable; }
+ 
+        bool GetReadOnly() { return m_read_only; }
+        void SetReadOnly(bool read_only) { m_read_only = read_only; }
+ 
+        void SetAbsoluteFilename(QString filename) { m_absolute_filename = filename; }
 
-        bool GetChecksum() { return m_checksum; }
-        void SetChecksum(bool checksum) { m_checksum = checksum; }
+        bool OpenForReading();
+        bool OpenForWriting(QDir);
 
-        bool GetContents(QByteArray &, qint64 &);
+        bool IsComplete();
+
+        QByteArray ReadChunk(qint64);
+        void WriteChunk(QByteArray);
+ 
 
     private:
 
-        QString m_full_filename;
+        QFile m_file;
+        QString m_absolute_filename;
 
+        int m_id;
         QString m_filename;
-        qint64  m_uncompressed_size;
-        bool    m_compressed;
-        bool    m_checksum;
+        qint64 m_size;
+        bool m_executable;
+        bool m_read_only;
 };
 
 #endif // CFILEHEADER_H

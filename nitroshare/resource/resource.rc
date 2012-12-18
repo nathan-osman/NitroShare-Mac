@@ -4,8 +4,8 @@
 IDI_ICON1 ICON DISCARDABLE "icon.ico"
 
 1 VERSIONINFO
-FILEVERSION 0,2,0,0
-PRODUCTVERSION 0,2,0,0
+FILEVERSION 0,3,0,0
+PRODUCTVERSION 0,3,0,0
 FILETYPE VFT_APP
 {
     BLOCK "StringFileInfo"
@@ -13,14 +13,14 @@ FILETYPE VFT_APP
         BLOCK "100904E4"
         {
             VALUE "CompanyName", "Nathan Osman"
-            VALUE "FileVersion", "0.2"
+            VALUE "FileVersion", "0.3"
             VALUE "FileDescription", "Shares Files over a Local Network"
             VALUE "InternalName", "NitroShare"
             VALUE "LegalCopyright", "© 2012"
             VALUE "LegalTrademarks", ""
             VALUE "OriginalFilename", "nitroshare.exe"
             VALUE "ProductName", "NitroShare"
-            VALUE "ProductVersion", "0.2"
+            VALUE "ProductVersion", "0.3"
         }
     }
 
