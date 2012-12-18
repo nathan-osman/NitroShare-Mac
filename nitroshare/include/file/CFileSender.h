@@ -23,7 +23,7 @@
 
 #include "discovery/CMachine.h"
 #include "file/CBasicSocket.h"
-#include "file/CFileHeaderManager.h"
+#include "file/CFileHeader.h"
 
 class CFileSender : public CBasicSocket
 {
@@ -39,10 +39,8 @@ class CFileSender : public CBasicSocket
             ProgressError    = -3
         };
 
-        CFileSender(QObject *);
-
-        void AddFiles(QStringList);
-        bool AddDirectory(QString);
+        CFileSender(QObject *, QStringList);
+        virtual ~CFileSender();
 
         void Start(CMachine);
 
@@ -52,14 +50,12 @@ class CFileSender : public CBasicSocket
 
     private slots:
 
+        void OnBytesWritten(qint64);
         void OnConnected();
         void OnData(QByteArray);
-        void OnBytesWritten(qint64=0);
-
 
     private:
 
-        /* This enum represents the current status of the operation. */
         enum SendState {
             WaitingForConnection,
             WaitingForHeaderResponse,
@@ -68,10 +64,22 @@ class CFileSender : public CBasicSocket
 
         SendState m_state;
 
-        CFileHeaderManager m_headers;
- 
-        /* Statistics used for calculating progress during transfer. */
-        qint64 m_total_chunks, m_chunks_transferred;
+        void PrepareFile(QFileInfo, QString);
+        void PrepareDirectory(QFileInfo, QString);
+        void PrepareHeaders(QStringList);
+        void SendFile(CFileHeader *);
+
+        QList<CFileHeader *> m_headers;
+        bool m_compress_files,
+             m_calculate_checksum,
+             m_oversized_prompt;
+
+        /* Yes, I do believe in verbosity - code completion to the rescue! */
+        qint64 m_total_uncompressed_bytes,
+               m_total_uncompressed_bytes_so_far;
+        qint64 m_current_file_uncompressed_bytes,
+               m_current_file_transfer_bytes,
+               m_current_file_bytes_so_far;
 
 };
 

@@ -45,20 +45,14 @@ QVariantMap CBasicSocket::DecodeJSON(QByteArray input)
     return QJson::Parser().parse(input).toMap();
 }
 
-void CBasicSocket::PrependSize(QByteArray & data)
-{
-     /* Format the size of the data as a string and append
-           the terminating character to the end. */
-    QByteArray data_size = QByteArray::number(data.size());
-    data_size.append(TerminatingCharacter);
-
-    /* Now prepend that to the data. */
-    data.prepend(data_size);
-}
-
 void CBasicSocket::SendData(QByteArray data)
 {
-    PrependSize(data);
+    /* In order to send data across the socket, we
+       write the size of the data as text and then
+       send our terminating character. */
+    QByteArray data_size = QByteArray::number(data.size());
+    data_size.append(TerminatingCharacter);
+    write(data_size);
     write(data);
 }
 

@@ -20,7 +20,7 @@
 #include <QDialog>
 #include <QList>
 
-#include "file/CFileHeaderManager.h"
+#include "file/CFileHeader.h"
 
 namespace Ui {
     class CAcceptPromptDialog;
@@ -32,7 +32,7 @@ class CAcceptPromptDialog : public QDialog
         
     public:
 
-	CAcceptPromptDialog(QString, const CFileHeaderManager &);
+        CAcceptPromptDialog(QString, QList<CFileHeader *> &);
         ~CAcceptPromptDialog();
         
     private:

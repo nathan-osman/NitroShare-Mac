@@ -166,9 +166,7 @@ void CTrayIcon::OnSendFiles(QStringList filenames, QString id)
     }
 
     /* Create the client that will manage the transmission of files. */
-    CFileSender * client = new CFileSender(this);
-    client->AddFiles(filenames);
-
+    CFileSender * client = new CFileSender(this, filenames);
     connect(client, SIGNAL(Error(QString)),       SLOT(OnError(QString)));
     connect(client, SIGNAL(Information(QString)), SLOT(OnInformation(QString)));
 
@@ -186,16 +184,13 @@ void CTrayIcon::OnSendFiles(QStringList filenames, QString id)
 
 void CTrayIcon::OnSendDirectory()
 {
-    /* TODO: this is currently broken and therefore commented out. */
-
-    /*
+    /* Ask the user for the directory they wish to send. */
     QString directory = QFileDialog::getExistingDirectory(NULL, tr("Select a Directory"));
     if(!directory.isEmpty())
     {
         QAction * action = qobject_cast<QAction *>(sender());
         OnSendFiles(QStringList(directory), action->data().toString());
     }
-    */
 }
 
 void CTrayIcon::OnSettings()

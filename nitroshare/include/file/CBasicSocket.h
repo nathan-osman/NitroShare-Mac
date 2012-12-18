@@ -52,7 +52,6 @@ class CBasicSocket : public QTcpSocket
         QVariantMap DecodeJSON(QByteArray);
 
         /* Methods for sending data and status updates to the remote host. */
-        void PrependSize(QByteArray &);
         void SendData(QByteArray);
         void SendStatus(QString);
 

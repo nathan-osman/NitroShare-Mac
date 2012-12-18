@@ -18,11 +18,10 @@
 #define CFILERECEIVER_H
 
 #include <QDir>
-#include <QVariantList>
 #include <QVariantMap>
 
 #include "file/CBasicSocket.h"
-#include "file/CFileHeaderManager.h"
+#include "file/CFileHeader.h"
 
 class CFileReceiver : public CBasicSocket
 {
@@ -31,6 +30,7 @@ class CFileReceiver : public CBasicSocket
     public:
 
         CFileReceiver(QObject *);
+        virtual ~CFileReceiver();
 
         void Start(int);
 
@@ -48,11 +48,15 @@ class CFileReceiver : public CBasicSocket
         ReceiveState m_state;
 
         void ParseHeaders(QVariantMap);
-        bool TestAgainstPolicy(QString, QString &, QVariantList &);
+        bool TestAgainstPolicy();
+        bool TestReceivedFilesDirectory(QDir);
+        bool TestChecksum(QByteArray &);
+        void SaveFile(CFileHeader *, QByteArray);
 
-       CFileHeaderManager m_headers;
+        QString              m_client_name;
+        QList<CFileHeader *> m_headers;
 
-       QDir m_directory;
+        int m_files_received;
 };
 
 #endif // CFILERECEIVER_H

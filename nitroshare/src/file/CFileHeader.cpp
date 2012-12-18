@@ -14,45 +14,28 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 
+#include <QFile>
 
 #include "file/CFileHeader.h"
 
-CFileHeader::CFileHeader()
-    : m_id(0), m_size(0), m_executable(false), m_read_only(false)
+bool CFileHeader::GetContents(QByteArray & contents, qint64 & uncompressed_size)
 {
-    //...
-}
+    QFile file(m_full_filename);
 
-bool CFileHeader::OpenForReading()
-{
-    m_file.setFileName(m_absolute_filename);
-    return m_file.open(QIODevice::ReadOnly);
-}
+    /* Attempt to open the file for reading. */
+    if(file.open(QIODevice::ReadOnly))
+    {
+        /* Grab the file size and read the file contents. */
+        uncompressed_size = file.size();
+        contents          = file.readAll();
 
-bool CFileHeader::OpenForWriting(QDir dir)
-{
-    /* The filename we have stored is relative and therefore
-       we need to resolve it against the supplied directory. */
+        /* If the user has requested compression, then perform that. */
+        if(m_compressed)
+            contents = qCompress(contents, 9);
 
-    /* TODO: sanitize filename. */
-    /* TODO: Create path if needed. */
-    /* TODO: implement attributes. */
+        return true;
+    }
 
-    m_file.setFileName(dir.absoluteFilePath(m_filename));
-    return m_file.open(QIODevice::WriteOnly);
-}
-
-bool CFileHeader::IsComplete()
-{
-    return m_file.atEnd();
-}
-
-QByteArray CFileHeader::ReadChunk(qint64 max_size)
-{
-    return m_file.read(max_size);
-}
-
-void CFileHeader::WriteChunk(QByteArray chunk)
-{
-    m_file.write(chunk);
+    /* The function calling this needs to take care of displaying an error message. */
+    return false;
 }
