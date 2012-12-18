@@ -1,15 +1,7 @@
-## NitroShare for Mac OS X
+## NitroShare for Mac OS X - Development 0.3
 
-This repository exists to make it easy for Mac users to download the project files for NitroShare (and its dependencies) and  build the entire application.
+This repository exists to import the code changes from the Development code base, Making testing between platforms easier, and eventually leading to the 0.3 release.
 
-### How to Build
+## Changes
 
-1. Install Qt Creator
-1. Open the project file (`build.pro`)
-1. Select "Release"
-1. Build the project
-
-### What's Changed
-
-* Removed some unnecessary lines from the qxmlrpc project file.
-* Replaced `#include "xmlrpc...` with `#include "qxmlrpc...` in qxmlrpc source and header files.
+- Imported code changes from development branch from Launchpad, while keeping Mac specific changes.
