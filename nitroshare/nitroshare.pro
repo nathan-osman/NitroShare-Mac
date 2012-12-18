@@ -44,7 +44,8 @@ SOURCES += \
     src/util/definitions.cpp \
     src/util/network.cpp \
     src/util/settings.cpp \
-    src/widgets/CBroadcastDiscoveryWidget.cpp
+    src/widgets/CBroadcastDiscoveryWidget.cpp \
+    src/file/CFileHeaderManager.cpp
 
 HEADERS  += \
     include/dialogs/CAboutDialog.h \
@@ -68,7 +69,8 @@ HEADERS  += \
     include/util/definitions.h \
     include/util/network.h \
     include/util/settings.h \
-    include/widgets/CBroadcastDiscoveryWidget.h
+    include/widgets/CBroadcastDiscoveryWidget.h \
+    include/file/CFileHeaderManager.h
 
 FORMS += \
     ui/CAboutDialog.ui \

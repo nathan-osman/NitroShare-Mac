@@ -46,7 +46,7 @@ CSettingsDialog::CSettingsDialog()
 
 CSettingsDialog::~CSettingsDialog()
 {
-  delete ui;
+    delete ui;
 }
 
 void CSettingsDialog::OnBrowse()

@@ -14,45 +14,9 @@
    You should have received a copy of the GNU General Public License
    along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 
-#ifndef CFILERECEIVER_H
-#define CFILERECEIVER_H
+#include "CNitroShare.h"
 
-#include <QDir>
-#include <QVariantList>
-#include <QVariantMap>
-
-#include "file/CBasicSocket.h"
-#include "file/CFileHeaderManager.h"
-
-class CFileReceiver : public CBasicSocket
+CNitroShare::CNitroShare()
 {
-    Q_OBJECT
-
-    public:
-
-        CFileReceiver(QObject *);
-
-        void Start(int);
-
-    private slots:
-
-        void OnData(QByteArray);
-
-    private:
-
-        enum ReceiveState {
-            WaitingForHeader,
-            WaitingForTransfer
-        };
-
-        ReceiveState m_state;
-
-        void ParseHeaders(QVariantMap);
-        bool TestAgainstPolicy(QString, QString &, QVariantList &);
-
-       CFileHeaderManager m_headers;
-
-       QDir m_directory;
-};
-
-#endif // CFILERECEIVER_H
+    //...
+}

@@ -15,34 +15,28 @@
    along with this program.  If not, see <http://www.gnu.org/licenses/>. */
 
 #include <QDebug>
-#include <QDir>
-#include <QMessageBox>
-#include <QUrl>
 #include <QVariantList>
 #include <qjson/qobjecthelper.h>
 
 #include "file/CFileSender.h"
 #include "util/settings.h"
 
-CFileSender::CFileSender(QObject * parent, QStringList filenames)
-    : CBasicSocket(parent), m_state(WaitingForConnection), m_oversized_prompt(false),
-      m_total_uncompressed_bytes(0), m_total_uncompressed_bytes_so_far(0)
+CFileSender::CFileSender(QObject * parent)
+    : CBasicSocket(parent), m_state(WaitingForConnection)
 {
-    connect(this, SIGNAL(bytesWritten(qint64)), SLOT(OnBytesWritten(qint64)));
     connect(this, SIGNAL(connected()),          SLOT(OnConnected()));
     connect(this, SIGNAL(Data(QByteArray)),     SLOT(OnData(QByteArray)));
-
-    /* Look up the current settings for compression and checksum generation. */
-    m_compress_files     = Settings::Get("General/CompressFiles").toBool();
-    m_calculate_checksum = Settings::Get("General/CalculateChecksum").toBool();
-
-    /* Immediately begin preparing the headers for the transfer. */
-    PrepareHeaders(filenames);
+    connect(this, SIGNAL(bytesWritten(qint64)), SLOT(OnBytesWritten(qint64)));
+}
+void CFileSender::AddFiles(QStringList filenames)
+{
+    foreach(QString filename, filenames)
+        m_headers.AddFile(QFileInfo(filename));
 }
 
-CFileSender::~CFileSender()
+bool CFileSender::AddDirectory(QString directory)
 {
-    qDeleteAll(m_headers);
+    return m_headers.AddDirectory(directory);
 }
 
 void CFileSender::Start(CMachine machine)
@@ -54,33 +48,6 @@ void CFileSender::Start(CMachine machine)
     connectToHost(machine.address, machine.port);
 }
 
-void CFileSender::OnBytesWritten(qint64 amount)
-{
-    /* This signal is emitted for not only file data being
-       written but also our headers, etc. So only do anything
-       if we are in the process of transferring files. */
-    if(m_state == TransferringFiles)
-    {
-        m_current_file_bytes_so_far += amount;
-
-        /* Determine what percentage of the file has been transferred so far. */
-        double percent_transferred = CalculateProgress(m_current_file_bytes_so_far, m_current_file_transfer_bytes);
-
-        /* Next, determine what percentage of the total transfer this file represents. */
-        double percent_of_total = CalculateProgress(m_current_file_uncompressed_bytes, m_total_uncompressed_bytes);
-
-        /* Lastly add that amount to what has been transferred so far for the final number. */
-        double progress = CalculateProgress(m_total_uncompressed_bytes_so_far, m_total_uncompressed_bytes);
-
-        emit Progress((progress + percent_transferred * percent_of_total) * 100.0);
-
-        /* If we've reached the end of the current file, then add the _uncompressed_
-           size of this file to the total. */
-        if(m_current_file_bytes_so_far >= m_current_file_transfer_bytes)
-            m_total_uncompressed_bytes_so_far += m_current_file_uncompressed_bytes;
-    }
-}
-
 void CFileSender::OnConnected()
 {
     qDebug() << "Connection with remote server established.";
@@ -88,14 +55,13 @@ void CFileSender::OnConnected()
     /* Once we have established connection with the remote machine,
        we immediately begin sending headers for all of the files. */
     QVariantList header_list;
-    foreach(CFileHeader * header, m_headers)
-        header_list.append(QJson::QObjectHelper::qobject2qvariant(header));
+    m_headers.GetHeaders(header_list);
 
     /* Prepare the JSON object we will send over the wire containing
        the header and some other basic information about the transfer. */
     QVariantMap map;
-    map["name"]  = Settings::Get("General/MachineName");
-    map["files"] = header_list;
+    map["machine"] = Settings::Get("General/MachineName");
+    map["files"]   = header_list;
 
     SendData(EncodeJSON(map));
 
@@ -108,13 +74,24 @@ void CFileSender::OnData(QByteArray data)
 {
     qDebug() << "Data received from remote server" << data;
 
-    /* The client sends us two messages during the process.
-       - the first is immediately after we send the headers
-       - the second occurs after each file transfer
-       Both of these responses are in JSON format. */
+    /* We currently only accept one of the following messages:
+        - an "acceptall" status, which indicates the entire payload is accepted
+        - an "accept" status which indicates that part of the payload
+          is accepted and we can begin transferring the files
+        - a "reject" status indicating that none of the payload was accepted
+          and we should immediately close the file */
 
     QVariantMap response = DecodeJSON(data);
-    if(!response.contains("status") || response["status"] != "continue")
+    if(response["status"] != "acceptall" && response["status"] != "accept" && response["status"] != "reject")
+    {
+        emit Error(tr("Unrecognized message received from remote server. Aborting transfer."));
+
+        disconnectFromHost();
+        return;
+    }
+
+    /* Abort the transfer if the remote server rejected the transfer. */
+    if(response["status"] == "reject")
     {
         emit Error(tr("The remote machine aborted the transfer."));
 
@@ -122,105 +99,56 @@ void CFileSender::OnData(QByteArray data)
         return;
     }
 
-    /* Regardless of our current state, we can assume our task here is to begin
-       transferring the next file in the list (if there is one). */
+    /* The remote server accepted some of our payload. Get the list of file IDs. */
+    if(response["status"] == "accept")
+    {
+        /* Pass the list of files to the header manager. */
+        if(response.contains("files") && response["files"].toList().size())
+            m_headers.SetAcceptedFiles(response["files"].toList());
+        /* We can only assume no files were accepted so... just close the connection. */
+        else
+        {
+            disconnectFromHost();
+            return;
+        }
+    }
+    /* Otherwise, everything was accepted and we can begin the transfer. */
+    else
+        m_headers.AcceptAll();
+
+    /* Now we can begin sending the files. */
     m_state = TransferringFiles;
 
-    if(m_headers.size())
+    /* Transfer the first chunk. */
+    OnBytesWritten();
+}
+
+void CFileSender::OnBytesWritten(qint64)
+
+{
+    /* Ignore all data written before we are transferring files. */
+    if(m_state != TransferringFiles)
+        return;
+
+    QByteArray chunk;
+    QVariantMap sizes;
+
+    /* If there is another chunk, send it. */
+    if(m_headers.GetNextChunk(chunk, sizes))
+
     {
-        CFileHeader * header = m_headers.takeFirst();
-        SendFile(header);
-        delete header;
+        /* Create the JSON containing size information. */
+        QByteArray sizes_json = EncodeJSON(sizes);
+        PrependSize(sizes_json);
+
+        /* Prepend the chunk with the file size information and send it. */
+        chunk.prepend(sizes_json);
+        SendData(chunk);
     }
-    /* Otherwise we're done! Emit the signal and disconnect from the server. */
+    /* Otherwise disconnect. */
+
     else
     {
-        emit Progress(ProgressComplete);
-        disconnectFromHost();
-    }
-}
-
-void CFileSender::PrepareFile(QFileInfo info, QString prefix)
-{
-    /* If one of the files is larger than 30 MB and compression is turned on, ask
-       the user if they want to disable compression for the current transfer. */
-    if(info.size() > 30000000 && m_compress_files && !m_oversized_prompt)
-    {
-        if(QMessageBox::warning(NULL, tr("Warning:"), tr("Transferring files larger than 30 MB with compression enabled can significantly slow down your computer.\n\nWould you like to temporarily disable compression for these files?"),
-                                QMessageBox::Yes, QMessageBox::No) == QMessageBox::Yes)
-            m_compress_files = false;
-
-        m_oversized_prompt = true;
-    }
-
-    CFileHeader * header = new CFileHeader(info.absoluteFilePath());
-    header->SetFilename(prefix + info.fileName());
-    header->SetUncompressedSize(info.size());
-    header->SetCompressed(m_compress_files);
-    header->SetChecksum(m_calculate_checksum);
-
-    m_headers.append(header);
-
-    /* Add the uncompressed size to our running total. */
-    m_total_uncompressed_bytes += info.size();
-}
-
-void CFileSender::PrepareDirectory(QFileInfo info, QString prefix)
-{
-    QDir directory(info.absoluteFilePath());
-    prefix = prefix + directory.dirName() + "/";
-
-    foreach(QFileInfo info, directory.entryInfoList(QDir::Dirs | QDir::Files | QDir::NoDotAndDotDot))
-    {
-        if(info.isDir()) PrepareDirectory(info, prefix);
-        else             PrepareFile(info, prefix);
-    }
-}
-
-void CFileSender::PrepareHeaders(QStringList filenames)
-{
-    foreach(QString filename, filenames)
-    {
-        /* If the file begins with "file://" remove that part. */
-        if(filename.startsWith("file:///"))
-            filename = QUrl(filename).toLocalFile();
-
-        QFileInfo info(filename);
-
-        /* Determine if this "file" is really a file or if it is instead
-           a directory (in which case we need to travers it recursively). */
-        if(info.isDir()) PrepareDirectory(info, "");
-        else             PrepareFile(info, "");
-    }
-}
-
-void CFileSender::SendFile(CFileHeader * header)
-{
-    qDebug() << "Preparing to transfer" << header->GetFilename() << "...";
-
-    /* Now we actually begin the transmission of the file. */
-    QByteArray contents;
-    if(header->GetContents(contents, m_current_file_uncompressed_bytes))
-    {
-        /* Calculate the checksum if requested. */
-        if(header->GetChecksum())
-        {
-            QByteArray crc = QByteArray::number(qChecksum(contents.data(), contents.size()));
-            contents.prepend(crc + TerminatingCharacter);
-
-            qDebug() << "Calculated CRC:" << crc;
-        }
-
-        /* Reset the transfer statistics. */
-        m_current_file_bytes_so_far   = 0;
-        m_current_file_transfer_bytes = contents.size();
-
-        /* Send the actual data. */
-        SendData(contents);
-    }
-    else
-    {
-        emit Error(tr("Unable to open '%1' for reading. Aborting transfer.").arg(header->GetFilename()));
         disconnectFromHost();
     }
 }

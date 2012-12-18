@@ -16,5 +16,9 @@
 
 #include "util/definitions.h"
 
-const QString Definitions::Version     = "0.2";
-const int Definitions::ProtocolVersion = 1;
+const QString Definitions::Version     = "0.3";
+
+/* The protocol version allows us to ensure that we only
+   communicate with other instances of NitroShare that
+   are compatible with the protocol we are using. */
+const int Definitions::ProtocolVersion = 2;
